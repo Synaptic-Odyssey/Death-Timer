@@ -9,17 +9,32 @@
     </head>
     <body>
         <form id="infoForm">
-            <label for = "birthday"> Birthday: </label>
-            <input type = "date" id = "birthday" name = "birthday">
-            <button type = "submit"> Save </button>
+            
+            <div class = "container">
+                <label for = "birthday" class = "title"> Birthday: </label>
+            </div>
 
-            <label for = "male"> Male </label>
-            <input type="radio" id = "male" name="sex" value="male">
-            
-            <label for = "female"> Female </label>
-            <input type="radio" id = "female" name="sex" value="female">
-            
+            <div class="question">
+                <input type = "date" id = "birthday" name = "birthday">
+                <button type = "submit" class = "info"> Save </button>
+            </div>
+
+            <div class = "container">
+                <div class="question">
+                    <input type="radio" id = "male" name="sex" value="male">
+                    <label for = "male" class = info>  Male </label>
+                </div>
+                
+                <div class="question">
+                    <input type="radio" id = "female" name="sex" value="female">
+                    <label for = "female" class = "info">  Female </label>
+                </div>
+            </div>
+
         </form>
 
     </body>
+
+    <script src="setup.js" defer></script>
+
 </html>
