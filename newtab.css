@@ -10,8 +10,10 @@ body {
 }
 
 html {
-    font-family: "Franklin Gothic Medium", "Franklin Gothic", "ITC Franklin Gothic", Arial, sans-serif;
+    font-family: "Roboto Mono", "Fira Mono", monospace;
+    font-variant-numeric: tabular-nums;
     color: whitesmoke;
+    font-weight: bold;
 
 }
 
@@ -23,5 +25,13 @@ html {
 }
 
 #yearsLeft{
-    font-size: 3 rem;
+    font-size: 7rem;
+    text-align: center;
+    width: 100%
+}
+
+#caption {
+    text-align: right;
+    font-weight: bold;
+    font-size: 1.75rem;
 }
