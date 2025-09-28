@@ -37,3 +37,7 @@ label {
     flex-direction: row;
     margin: 0.75rem 0rem 0.75rem 0rem;
 }
+
+#launch {
+    margin-top: 1rem;
+}

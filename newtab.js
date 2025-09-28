@@ -11,7 +11,7 @@ chrome.storage.local.get(["diffYears"], function(result) {
     }
 
 
-    console.log(result.diffYears);
+    //console.log(result.diffYears);
 
     untilDeath = result.diffYears;
 
