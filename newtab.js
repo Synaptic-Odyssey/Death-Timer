@@ -9,35 +9,54 @@ document.addEventListener("DOMContentLoaded", async function() {
     const msYear = 365.25 * 24 * 60 * 60 * 1000;
     const intervalMs = 50;
 
-    function getDiffYears() {
+    function getFromStorage(keys) {
         return new Promise(resolve => {
-            chrome.storage.local.get("diffYears", function(result) {
-                resolve(result.diffYears);
-            });
+            chrome.storage.local.get(keys, resolve);
         });
     }
 
-    const diffYears = await getDiffYears();
-    if (!diffYears) {
-        window.location.href = chrome.runtime.getURL("setup.html");
-        return;
+    function setToStorage(obj) {
+        return new Promise(resolve => {
+            chrome.storage.local.set(obj, resolve);
+        });
     }
 
-    let untilDeath = diffYears;
+    const stored = await getFromStorage(["deathTimestamp", "diffYears"]);
+    let deathTs = stored.deathTimestamp;
+
+    if (!deathTs) {
+        const legacyDiffYears = stored.diffYears;
+        if (!legacyDiffYears) {
+            window.location.href = chrome.runtime.getURL("setup.html");
+            return;
+        }
+        deathTs = Date.now() + legacyDiffYears * msYear;
+        await setToStorage({ deathTimestamp: deathTs });
+    }
+
+    if (typeof deathTs !== "number") {
+        deathTs = Number(deathTs);
+    }
+
+    function render(msLeft) {
+        const yearsLeft = msLeft / msYear;
+        timer.textContent = yearsLeft.toFixed(12);
+    }
+
     let last = Date.now();
 
     const intervalId = setInterval(function() {
         const now = Date.now();
-        const elapsed = now - last;
-        last = now;
+        const msLeft = deathTs - now;
 
-        untilDeath -= elapsed / msYear;
-        timer.textContent = untilDeath.toFixed(10);
-
-        if (untilDeath <= 0) {
+        if (msLeft <= 0) {
             clearInterval(intervalId);
             timer.textContent = "Rip";
+            return;
         }
+
+        render(msLeft);
+        last = now;
     }, intervalMs);
 });
 

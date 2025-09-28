@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const birthday = new Date(birthdayInput);
-        const lifeExpectancy = (sexInput === "male") ? 76 : 81;
+        const lifeExpectancy = (sexInput === "male") ? 75.8 : 81.1;
         const current = new Date();
         const deathDate = new Date(birthday);
         deathDate.setFullYear(deathDate.getFullYear() + lifeExpectancy);
