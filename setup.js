@@ -8,41 +8,28 @@ form.addEventListener("submit", function(event) {
 
     const lifeExpectancy = (sex === "male") ? 76 : 81;
 
-
     const current = new Date();
     const deathDate = new Date(birthday);
     deathDate.setFullYear(deathDate.getFullYear() + lifeExpectancy);
     const diff = deathDate - current;
-
     const msPerYear = 365.25 * 24 * 60 * 60 * 1000;
-    const diffYears = diff/msPerYear;
+    const diffYears = diff / msPerYear;
 
-    chrome.storage.local.set({diffYears : diffYears}, function() {
-        //console.log(diffYears + " years");
-
-    });
+    chrome.storage.local.set({ diffYears: diffYears }, function() {});
 
     const launchButton = document.querySelector("#launch");
 
     launchButton.addEventListener("click", function() {
-        
-        const name = document.querySelector("#name").value;
-        const classSelected = document.querySelector("input[name='class']:checked");
-
-        if (!name) {
-            alert("Please enter your name!");
+        if (!birthday) {
+            alert("Please enter your birthday!");
             return;
         }
 
-        if (!classSelected) {
-            alert("Please choose a class!");
+        if (!sex) {
+            alert("Please select your sex!");
             return;
         }
 
-        localStorage.setItem("playerName", name);
-        localStorage.setItem("playerClass", classSelected.value);
-
-        window.location.href = "main.html";
+        window.location.href = chrome.runtime.getURL("newtab.html");
     });
-
 });
