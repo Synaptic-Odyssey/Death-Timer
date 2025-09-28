@@ -5,6 +5,7 @@ const msYear = 365.25 * 24 * 60 * 60 * 1000;
 const intervalMs = 50;
 
 chrome.storage.local.get(["diffYears"], function(result) {
+    
     if (!result.diffYears) {
         window.location.href = chrome.runtime.getURL("setup.html");
         return;
